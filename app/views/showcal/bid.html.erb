@@ -1,0 +1,105 @@
+
+
+	<div class="row">
+    <div class="col-md-12">
+      <div class="panel-body">
+		    <% if user_signed_in? %>
+		        <%= link_to searches_path :search_domain => "Ausschreibungen", :controller_name => controller_name do %>
+		          <i class="btn btn-primary btn-xs glyphicon glyphicon-filter"></i>
+		        <% end %>
+		    <% end %>
+        <%= link_to showcal_bid_path(:page => session[:page], :dir => "<")  do %>
+          <i class="btn btn-primary btn-xs glyphicon glyphicon-arrow-left"></i>
+        <% end %>
+        <%= link_to showcal_bid_path(:page => session[:page], :dir => ">")  do %>
+          <i class="btn btn-primary btn-xs glyphicon glyphicon-arrow-right"></i>
+        <% end %>
+        <ntext>Kalenderwoche <%= session[:cw].to_s + " / " + session[:year].to_s %></ntext>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+      <%= header("Ausschreibungen " + "<span class='badge'>" + @bidanz.to_s + "</span>", true) %>
+  </div>
+
+	<div class="row">
+    <div class="col-md-12">
+      <div class="panel-body">
+    		<table class="table table-striped">
+          <thead>
+            <tr>
+              <td colspan="13">
+                <div class="digg_pagination">
+                    <%= will_paginate @bids, :container => false, previous_label: "<", next_label: ">" %>
+                </div>	  
+              </td>
+            </tr>
+            <tr>
+              <th>Ausschreibung</th>
+              <% for i in 0..6 %>
+                <th>
+                  <%= $wochentage[i] %><br>
+                  <small_cal>
+                  <%= (@start+i).strftime("%d.%m") %>
+                  </small_cal>
+                </th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+  
+              <% @bids.each do |b| %>
+                <tr>
+                  <td>
+                    <%= showFirstImage(:small, b, b.bid_details) %>
+                    <%= b.name %></br>
+                    <% if false %>
+            	      <anzeigetext>
+                      <%= b.name %></br>
+                    </anzeigetext>
+                    <ntext>
+                    <% if b.user_id != nil %>
+                      <%= b.user.name + " " + b.user.lastname %>
+                    <% end %><br>
+                    <% if b.date_to != nil %>
+                        <b><ntext>noch </ntext></b><restlaufzeit><%= (b.date_to.to_date - DateTime.now.to_date).to_i.to_s %></restlaufzeit> <b><ntext> Tage</ntext></b><br>
+                    <% end %>
+                    <% end %>
+                  </td>
+                  <% for i in 0..6 %>
+                      <% if BidDatum(@start+i,b) %>
+                        <td class="blocked">
+                      <% else %>
+                        <td class="free">
+                      <% end %>
+                      </th>
+                  <% end %>
+                </tr>
+              <% end %>
+  
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+	<div class="row">
+    <div class="col-md-12">
+      <div class="panel-body">
+        <div id="map">
+        </div>
+      </div>
+    </div>
+  </div>
+    
+
+
+<script>
+    handler = Gmaps.build('Google');
+    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+      markers = handler.addMarkers(<%=raw @hash.to_json %>);
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+});
+</script>

@@ -1,0 +1,426 @@
+
+  <div class="row">
+    <action>
+    <%= action_buttons2("Company", @company, @topic) %>
+    </action>
+  </div>
+
+  <div class="row">
+    <header><%= header(@company.name, true) %></header>
+  </div>
+  
+  <div class="row">
+      <div class='col-xs-10'>
+
+      <% case @topic %>
+        <% when "Company" %>
+          <%= header("Kontaktdaten", false) %>
+          <div class="panel-body">
+            <%= showImage2(:medium, @company, true) %>
+            <br>
+            <b>Branche</b>
+            <%= @company.mcategory.name %>
+            <br>
+            <cite><%= @company.created_at.strftime("%d.%m.%Y") %></cite><br>
+            <% if user_signed_in? %>
+    	        <%= link_to new_email_path :m_from_id => current_user.id, :m_to_id => @company.user.id, :header => @company.name, :back_url => request.original_url do %>
+                <i class="btn btn-default glyphicon glyphicon-envelope"></i>
+              <% end %>
+            <% else %>
+                <i class="glyphicon glyphicon-envelope"></i>
+            <% end %>
+            <%= @company.user.email %><br><br>
+          </div>
+          <%= header("Aktivitätsübersicht", false) %>
+          <div class="panel-body">
+              <%= content_tag :div, "", id: "donut-example0", data: {reports: @array} %>
+          </div>
+          <%= header("Ort (Karte)", false) %>
+          <div class="panel-body">
+            <div id="map">
+              <div id="map-canvas"></div>
+            </div>
+          </div>
+
+        <% when "Angebote" %>
+          <%= header("Angebote", false) %>
+          <%= build_medialist2(@company.mobjects.where('mtype=?',"Angebote"), "mobjects", nil) %>
+        <% when "Stellenanzeigen" %>
+          <%= header("Stellenanzeigen", false) %>
+          <%= build_medialist2(@company.mobjects.where('mtype=?',"Stellenanzeigen"), "mobjects", nil) %>
+        <% when "Kleinanzeigen" %>
+          <%= header("Kleinanzeigen", false) %>
+          <%= build_medialist2(@company.mobjects.where('mtype=?',"Kleinanzeigen"), "mobjects", nil) %>
+        <% when "Vermietungen" %>
+          <%= header("Vermietungen", false) %>
+          <%= build_medialist2(@company.mobjects.where('mtype=?',"Vermietungen"), "mobjectss", nil) %>
+        <% when "Veranstaltungen" %>
+          <%= header("Veranstaltungen", false) %>
+          <%= build_medialist2(@company.mobjects.where('mtype=?',"Veranstaltungen"), "mobjects", nil) %>
+        <% when "Sponsorenengagements" %>
+          <%= header("Sponsorenengagements", false) %>
+          <%= build_medialist2(@company.msponsors, "msponsors", nil) %>
+        <% when "Ausflugsziele" %>
+          <%= header("Ausflugsziele", false) %>
+          <%= build_medialist2(@company.mobjects.where('mtype=?',"Ausflugsziele"), "mobjects", nil) %>
+        <% when "Ausschreibungen" %>
+          <%= header("Ausschreibungen", false) %>
+          <%= build_medialist2(@company.mobjects.where('mtype=?',"Ausschreibungen"), "mobjects", nil) %>
+        <% when "Crowdfunding" %>
+          <%= header("Crowdfunding", false) %>
+          <%= build_medialist2(@company.mobjects.where('mtype=?',"Crowdfunding"), "mobjects", nil) %>
+        <% when "Crowdfunding Beitraege" %>
+          <%= header("Crowdfunding Beitraege", false) %>
+          <%= build_medialist2(@company.mstats, "mobjects", nil) %>
+
+        <% when "Reserve" %>
+          <div class="panel-body">
+            <% @company.sponsors.each do |cs| %>
+              <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="thumbnail" align="center">
+                  <%= link_to cs.event do %>
+                    <%= carousel2(cs.event.event_details,:medium) %>
+              		<% end %>
+                  <br>
+                  <anzeigetext>
+        						<%= cs.event.name %><br>
+                  </anzeigetext>
+                  <ntext>
+      						<%= align_text(cs.event.description) %>
+      						<br>
+                  <%= cs.event.ev_category.name %>
+                  <br>
+          				<% case cs.slevel %>
+          				  <% when "1" %>
+                      <%= image_tag("Sponsor_gold.jpg", :size => "200x200", class:"img-rounded" ) %>
+          				  <% when "2" %>
+                      <%= image_tag("Sponsor_silver.jpg", :size => "200x200", class:"img-rounded" ) %>
+          				  <% when "3" %>
+                      <%= image_tag("Sponsor_bronze.jpg", :size => "200x200", class:"img-rounded" ) %>
+                  <% end %>
+                  <br>
+                  vom <%= cs.event.date_from.strftime("%d.%m.%Y") %> bis <%= cs.event.date_to.strftime("%d.%m.%Y") %>
+                  </ntext>
+      						<br><br>
+                  <% if user_signed_in? %>
+                    <% if current_user.id == cs.company.user_id %>
+                      <%= link_to tickets_path :sponsor_id => cs.id do %>
+                        <i class="btn btn-primary glyphicon glyphicon-credit-card"></i>
+                      <% end %>
+            	        <%= link_to edit_sponsor_path(cs) do %>
+                        <i class="btn btn-primary glyphicon glyphicon-wrench"></i>
+                      <% end %>
+            	        <%= link_to cs, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                        <i class="btn btn-danger glyphicon glyphicon-trash"></i>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  <br><br>
+                </div>
+              </div>
+            <% end %>
+           </div>
+
+        <% when "Favoriten" %>
+          <%= header("Favoriten", false) %>
+          <div class="panel-body">
+            <% @company.user.favourits.each do |f| %>
+              <% @item = Object.const_get(f.object_name).find(f.object_id) %>
+              <% if @item != nil %>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                  <div class="thumbnail" align="center">
+                    <% if f.object_name == "User" or f.object_name == "Company" %>
+                      <%= link_to @item do %>
+                        <% if @item.avatar != nil %>
+                          <%= image_tag @item.avatar(:medium), class:"img-rounded" %>
+                        <% else %>
+                          <%= image_tag("nopic.jpg", :size => "200x200" , class:"img-rounded") %>
+                        <% end %>
+                      <% end %>
+                      <anzeigetext>
+                      <% if f.object_name == "User" %>
+                        <%= @item.name + " " + @item.lastname %>
+                      <% else %>
+                        <%= @item.name %>
+                      <% end %>
+                      </anzeigetext>
+                      <br><br>
+                      <% if f.active %>
+                        <% image_tag("icon_active.jpg", :size => "50x50" , class:"img-rounded") %>
+                         <i class="glyphicon glyphicon-ok-sign"></i> aktiv
+                      <% else %>
+                        <% image_tag("icon_inactive.jpg",:size => "50x50", class:"img-rounded") %>
+                         <i class="glyphicon lg glyphicon-remove-sign"></i> inaktiv
+                      <% end %>
+                      <% if f.email %>
+                        <% image_tag("icon_active.jpg", :size => "50x50" , class:"img-rounded") %>
+                         <i class="glyphicon glyphicon-ok-sign"></i> eMail
+                      <% end %>
+                      <% if f.ticker %>
+                        <% image_tag("icon_active.jpg", :size => "50x50" , class:"img-rounded") %>
+                         <i class="glyphicon glyphicon-ok-sign"></i> Ticker
+                      <% end %>
+                      <br><br>
+                      <% if user_signed_in? %>
+                        <% if @company.user_id == current_user.id %>
+                	        <%= link_to f, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                            <i class="btn btn-danger glyphicon glyphicon-trash"></i>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                      <br><br>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          
+    	 <% when "Kundenstatus" %>
+          <% hash = Hash.new %>
+          <% hash = {:company_id => @company.id} %>
+          <%= header("Kundenstatus", false) %>
+          <div class="panel-body">
+            <%= build_medialist2(@company.customers, "partners", hash) %>
+          </div>
+          <%= header("Partner", false) %>
+          <div class="panel-body">
+            <%= build_medialist2(Company.where('partner=?',true), "nopartners", hash) %>
+          </div>
+
+        <% when "Transaktionen" %>
+          <%= header("Transaktionen", false) %>
+          <div class="panel-body">
+            <% @trx = Transaction.where('ttype=? and company_id=?', "Payment", @company.id).order(trx_date: :desc) %>
+            <% @trx.each do |t| %>
+              <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="thumbnail" align="center">
+                  
+                  <% ac_ver = Account.find(t.account_ver) %>
+                  <% if ac_ver %>
+                    <% if ac_ver.customer.user_id %>
+                      <%= link_to ac_ver.customer.user do %>
+                        <% if !ac_ver.customer.user.avatar_file_name %>
+                          <%= image_tag("user_a.png", :size => "200x200" , class:"img-rounded") %>
+                        <% else %>
+                          <%= image_tag ac_ver.customer.user.avatar(:medium), class:"img-rounded"%>
+                        <% end %>
+                      <% end %>
+                      <anzeigetext>
+                        <%= ac_ver.customer.user.name + " " + ac_ver.customer.user.lastname %>
+                      </anzeigetext>
+                    <% end %>
+                    <% if ac_ver.customer.company_id %>
+                      <%= link_to ac_ver.customer.company do %>
+                        <% if !ac_ver.customer.company.avatar_file_name %>
+                          <%= image_tag("company_a.png", :size => "200x200" , class:"img-rounded") %>
+                        <% else %>
+                          <%= image_tag ac_ver.customer.company.avatar(:medium), class:"img-rounded"%>
+                        <% end %>
+                      <% end %>
+                      <anzeigetext>
+                        <%= ac_ver.customer.company.name %>
+                      </anzeigetext>
+                    <% end %>
+                  <% end %>
+                  <br><br>
+                  <b>Referenz</b>
+                  <% @item = Object.const_get(t.object_name).find(t.object_id) %>
+                  <% if @item %>
+                    <%= link_to @item do %>
+                      <%= @item.name %>
+                    <% end %>
+                    <br>
+                  <% end %>
+                  <br>
+                  <b>Betrag</b>
+                  <%= sprintf("%05.2f CHF",t.amount) if t.amount != nil %>
+                  <br><br>
+                  <b>Mitteilung</b><br>
+                  <%= t.text %>
+                  <br><br>
+                  <b>Status</b>
+                  <%= t.status if t.amount != nil %>
+                  <br><br>
+                  <% if t.status == "erfasst" %>
+                    <%= link_to company_path(@company, :trx_status_ok_id => t.id) do %>
+                      <i class="btn btn-primary glyphicon glyphicon-ok"></i>
+                    <% end %>
+                    <%= link_to edit_transaction_path(t, :user_id => current_user.id) do %>
+                      <i class="btn btn-primary glyphicon glyphicon-wrench"></i>
+                    <% end %>
+          	        <%= link_to t, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                      <i class="btn btn-danger glyphicon glyphicon-trash"></i>
+                    <% end %>
+                  <% end %>
+                  <% if t.status == "freigegeben" %>
+                    <%= link_to company_path(@company, :trx_status_ausgefuehrt_id => t.id) do %>
+                      <i class="btn btn-primary glyphicon glyphicon-thumbs-up"></i>
+                    <% end %>
+                  <% end %>
+                  <br><br>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+        <% when "Links" %>
+          <%= header("Partner Links", false) %>
+          <div class="panel-body">
+            <% @company.partner_links.each do |pl| %>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                  <div class="thumbnail" align="center">
+                    <anzeigetext>
+                      <%= pl.name %><br>
+                    </anzeigetext>
+                    <ntext>
+                    <%= pl.link %>
+                    </ntext>
+                    <ntext>
+                    <%= align_text(pl.description) %>
+                    </ntext>
+                    <br>
+                    <%= showImage2(:medium, pl, true) %>
+                    <br>
+                    <% if user_signed_in? %>
+                      <% if current_user.id == @company.user_id %>
+                        <% if @company.partner %>
+                          <%= link_to edit_partner_link_path(pl) do %>
+                            <i class="btn btn-primary glyphicon glyphicon-wrench"></i>
+                          <% end %>
+                          <%= link_to pl, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                            <i class="btn btn-danger glyphicon glyphicon-trash"></i>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                    <br><br>
+                  </div>
+                 </div>
+            <% end %>
+          </div>
+          
+        <% when "Email" %>
+          <%= header("Emails", false) %>
+          <div class="panel-body">
+            <% emails = Email.where('m_to=? or m_from=?', @company.user.id, @company.user.id).order(created_at: :desc) %>
+            <% emails.each do |e| %>
+              <% if e.m_to == @company.user.id %>
+                <% @u = User.find(e.m_from) %>
+                <%= showImage2(:small, @u, true) if @u %>
+              <% end %>
+              <% if e.m_from == @company.user.id %>
+                <% @u = User.find(e.m_to) %>
+                <%= showImage2(:small, @u, true) if @u %>
+              <% end %>
+              <%= e.header + e.body %><br>
+            <% end %>
+          </div>
+
+      <% end %>
+    </div>
+    
+      <div class='col-xs-2'>
+        <%= navigate("Company", @company) %>
+      </div>
+
+  </div>
+</div>
+
+<script>
+    handler = Gmaps.build('Google');
+    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+      markers = handler.addMarkers([
+        {
+          "lat": <%= @company.latitude %>,
+          "lng": <%= @company.longitude %>,
+          "infowindow": "<%= @company.name %>"
+        }
+      ]);
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+});
+</script>
+
+<!--<script>-->
+<!--$(document).ready(function(){-->
+<!--  $("header").mouseenter(function() {-->
+<!--    $("navigate").show();-->
+<!--    $("action").show();-->
+<!--  });-->
+<!--})-->
+<!--$(document).ready(function(){-->
+<!--  $("navigate").mouseleave(function() {-->
+<!--    $("navigate").hide()-->
+<!--    $("action").hide();-->
+<!--  });-->
+<!--})</script>-->
+
+<script>
+Morris.Donut({
+  element: 'donut-example0',
+  data: $('#donut-example0').data('reports'),
+}).on('click', function(i, row){
+  switch(row.label) {
+      case "Angebote":
+        loadUrl("<%= company_path(:id => @company.id, :topic => "Angebote") %>");
+        break
+      case "Stellenanzeigen":
+        loadUrl("<%= company_path(:id => @company.id, :topic => "Stellenanzeigen") %>");
+        break
+      case "Kleinanzeigen":
+        loadUrl("<%= company_path(:id => @company.id, :topic => "Kleinanzeigen") %>");
+        break
+      case "Vermietungen":
+        loadUrl("<%= company_path(:id => @company.id, :topic => "Vermietungen") %>");
+        break
+      case "Ausschreibungen":
+        loadUrl("<%= company_path(:id => @company.id, :topic => "Ausschreibungen") %>");
+        break
+      case "Veranstaltungen":
+        loadUrl("<%= company_path(:id => @company.id, :topic => "Veranstaltungen") %>");
+        break
+      case "Sponsorenengagements":
+        loadUrl("<%= company_path(:id => @company.id, :topic => "Sponsorenengagements") %>");
+        break
+      case "Crowdfunding":
+        loadUrl("<%= company_path(:id => @company.id, :topic => "Crowdfunding") %>");
+        break
+      case "Crowdfunding Beitraege":
+        loadUrl("<%= company_path(:id => @company.id, :topic => "Crowdfunding Beitraege") %>");
+        break
+      case "Kundenstatus":
+        loadUrl("<%= company_path(:id => @company.id, :topic => "Kundenstatus") %>");
+        break
+      case "Transaktionen":
+        loadUrl("<%= company_path(:id => @company.id, :topic => "Transaktionen") %>");
+        break
+      case "Email":
+        loadUrl("<%= company_path(:id => @company.id, :topic => "Email") %>");
+        break
+      case "Links":
+        loadUrl("<%= company_path(:id => @company.id, :topic => "Links") %>");
+        break
+      default:
+        loadUrl("<%= company_path(:id => @company.id, :topic => "Company") %>");
+  }
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.bxslider').bxSlider({
+      mode: 'fade',
+      auto: true,
+      speed:1000,
+      controls: false
+  });
+});
+</script>
+
+<script type="text/javascript">
+function loadUrl(newLocation)
+{
+  window.location.href = newLocation;
+}
+</script>
