@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-path = Rails.root.to_s + "/app/assets/images/sample_pics/"
+path = Rails.root.to_s + "/app/assets/images/"
 
 #create Params
 appparams = Appparam.create({name:"Kleinanzeigen", description:"Kleinanzeigen für Private Anbieten & Suchen", active:true})
@@ -371,14 +371,14 @@ for i in 1..10
     cra1 = random.rand(capanz)+1
     cat = 65
     @comp = Company.find(cra1)
-    mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Spenden", name:"Spendeninitiative "+i.to_s+" von "+@comp.name, date_from:Date.today, date_to:Date.today+30, company_id: cra1, user_id:nil, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5})
+    mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Spenden", name:"Spendeninitiative "+i.to_s+" von "+@comp.name, date_from:Date.today, date_to:Date.today+30, company_id: cra1, user_id:nil, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5, price:100})
     @mob = Mobject.where('name=?', "Spendeninitiative "+i.to_s+" von " + @comp.name).first
     for k in 1..3
         mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_spenden_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
     ura1 = random.rand(usanz)+1
     @user = User.find(ura1)
-    mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Spenden", name:"Spendeninitiative "+i.to_s+" von "+@user.name, date_from:Date.today, date_to:Date.today+30, company_id: nil, user_id: ura1, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5})
+    mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Spenden", name:"Spendeninitiative "+i.to_s+" von "+@user.name, date_from:Date.today, date_to:Date.today+30, company_id: nil, user_id: ura1, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5, price:100})
     @mob = Mobject.where('name=?', "Spendeninitiative "+i.to_s+" von " + @user.name).first
     for k in 1..3
         mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_spenden_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
@@ -391,14 +391,14 @@ for i in 1..10
     cra1 = random.rand(capanz)+1
     cat = 65
     @comp = Company.find(cra1)
-    mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Belohnungen", name:"Rewardinitiative "+i.to_s+" von "+@comp.name, date_from:Date.today, date_to:Date.today+30, company_id: cra1, user_id:nil, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5})
+    mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Belohnungen", name:"Rewardinitiative "+i.to_s+" von "+@comp.name, date_from:Date.today, date_to:Date.today+30, company_id: cra1, user_id:nil, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5, price:100})
     @mob = Mobject.where('name=?', "Rewardinitiative "+i.to_s+" von " + @comp.name).first
     for k in 1..3
         mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_belohnung_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
     ura1 = random.rand(usanz)+1
     @user = User.find(ura1)
-    mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Belohnungen", name:"Rewardinitiative "+i.to_s+" von "+@user.name, date_from:Date.today, date_to:Date.today+30, company_id: nil, user_id: ura1, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5})
+    mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Belohnungen", name:"Rewardinitiative "+i.to_s+" von "+@user.name, date_from:Date.today, date_to:Date.today+30, company_id: nil, user_id: ura1, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5, price:100})
     @mob = Mobject.where('name=?', "Rewardinitiative "+i.to_s+" von " + @user.name).first
     for k in 1..3
         mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_belohnung_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
@@ -411,14 +411,14 @@ for i in 1..10
     cra1 = random.rand(capanz)+1
     cat = 65
     @comp = Company.find(cra1)
-    mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Zinsen", name:"Kreditinitiative "+i.to_s+" von "+@comp.name, date_from:Date.today, date_to:Date.today+30, company_id: cra1, user_id:nil, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5})
+    mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Zinsen", name:"Kreditinitiative "+i.to_s+" von "+@comp.name, date_from:Date.today, date_to:Date.today+30, company_id: cra1, user_id:nil, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5, price:100})
     @mob = Mobject.where('name=?', "Kreditinitiative "+i.to_s+" von " + @comp.name).first
     for k in 1..3
         mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_kredit_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
     ura1 = random.rand(usanz)+1
     @user = User.find(ura1)
-    mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Zinsen", name:"Kreditinitiative "+i.to_s+" von "+@user.name, date_from:Date.today, date_to:Date.today+30, company_id: nil, user_id: ura1, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5})
+    mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Zinsen", name:"Kreditinitiative "+i.to_s+" von "+@user.name, date_from:Date.today, date_to:Date.today+30, company_id: nil, user_id: ura1, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5, price:100})
     @mob = Mobject.where('name=?', "Kreditinitiative "+i.to_s+" von " + @user.name).first
     for k in 1..3
         mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_kredit_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
