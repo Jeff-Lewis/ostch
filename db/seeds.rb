@@ -6,8 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-path = Rails.root.to_s + "/app/assets/images/sample_generate/pics/"
-path2 = Rails.root.to_s + "/app/assets/images/sample_generate/pdfs/"
+path = Rails.root.to_s + "/app/assets/images/sample_pics/"
 
 #create Params
 appparams = Appparam.create({name:"Kleinanzeigen", description:"Kleinanzeigen für Private Anbieten & Suchen", active:true})
@@ -209,12 +208,12 @@ for i in 1..20
     mobjects = Mobject.create({active:true, mtype:"Angebote", msubtype:"Aktion", name:"Sonderaktion "+i.to_s+" von "+@comp.name, date_from:Date.today, date_to:Date.today+30, company_id: cra1, user_id:nil, mcategory_id:29})
     @mob = Mobject.where('name=?', "Sonderaktion "+i.to_s+" von " + @comp.name).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'aktion_'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'aktion_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
     mobjects = Mobject.create({active:true, mtype:"Angebote", msubtype:"Standard", name:"Angebot "+i.to_s+" von "+@comp.name, date_from:Date.today, date_to:Date.today+30, company_id: cra1, user_id:nil, mcategory_id:28})
     @mob = Mobject.where('name=?', "Angebot "+i.to_s+" von " + @comp.name).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'service_b'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'service_b'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
 end
 for i in 1..20
@@ -223,12 +222,12 @@ for i in 1..20
     mobjects = Mobject.create({active:true, mtype:"Angebote", msubtype:"Aktion", name:"Sonderaktion "+i.to_s+" von "+@user.lastname, date_from:Date.today, date_to:Date.today+30, user_id: ura1, company_id:nil, mcategory_id:29})
     @mob = Mobject.where('name=?', "Sonderaktion "+i.to_s+" von " + @user.lastname).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'aktion_'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'aktion_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
     mobjects = Mobject.create({active:true, mtype:"Angebote", msubtype:"Standard", name:"Angebot "+i.to_s+" von "+@user.lastname, date_from:Date.today, date_to:Date.today+30, user_id: ura1, company_id:nil, mcategory_id:28})
     @mob = Mobject.where('name=?', "Sonderaktion "+i.to_s+" von " + @user.lastname).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'service_b'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'service_b'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
 end
 
@@ -254,7 +253,7 @@ for i in 1..20
     mobjects = Mobject.create({active:true, mtype:"Vermietungen", msubtype: nil, name:"Vermietobjekt "+i.to_s+" von "+@comp.name, date_from:Date.today, date_to:Date.today+30, company_id: cra1, user_id:nil, mcategory_id:30})
     @mob = Mobject.where('name=?', "Vermietobjekt "+i.to_s+" von " + @comp.name).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'vermietung_'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'vermietung_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
 
     ura1 = random.rand(usanz)+1
@@ -262,7 +261,7 @@ for i in 1..20
     mobjects = Mobject.create({active:true, mtype:"Vermietungen", msubtype: nil, name:"Vermietobjekt "+i.to_s+" von "+@user.name, date_from:Date.today, date_to:Date.today+30, company_id: nil, user_id: ura1, mcategory_id:30})
     @mob = Mobject.where('name=?', "Vermietobjekt "+i.to_s+" von " + @user.name).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'vermietung_'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'vermietung_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
 end
 
@@ -276,7 +275,7 @@ for i in 1..20
     mobjects = Mobject.create({active:true, mtype:"Ausschreibungen", msubtype: nil, name:"Ausschreibungslos "+i.to_s+" von "+@user.name, date_from:Date.today, date_to:Date.today+30, company_id: nil, user_id: ura1, mcategory_id: cat})
     @mob = Mobject.where('name=?', "Ausschreibungslos "+i.to_s+" von " + @user.name).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'ausschreibung_'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'ausschreibung_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
 end
 
@@ -290,7 +289,7 @@ for i in 1..20
     mobjects = Mobject.create({active:true, mtype:"Stellenanzeigen", msubtype: "Anbieten", name:"Stelle "+i.to_s+" von "+@comp.name, date_from:Date.today, date_to:Date.today+30, company_id: cra1, user_id:nil, mcategory_id: cat})
     @mob = Mobject.where('name=?', "Stelle "+i.to_s+" von " + @comp.name).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'stellenanzeige_'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'stellenanzeige_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
 end
 
@@ -313,7 +312,7 @@ for i in 1..20
     mobjects = Mobject.create({active:true, mtype:"Veranstaltungen", msubtype: nil, name:"Event "+i.to_s+" von "+@comp.name, date_from:Date.today, date_to:Date.today+30, company_id: cra1, user_id:nil, mcategory_id: cat})
     @mob = Mobject.where('name=?', "Event "+i.to_s+" von " + @comp.name).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'event_'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'event_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
 end
 
@@ -335,7 +334,7 @@ for i in 1..20
     mobjects = Mobject.create({active:true, mtype:"Ausflugsziele", msubtype: nil, name:"Ausflug "+i.to_s+" von "+@user.name, date_from:Date.today, date_to:Date.today+30, company_id: nil, user_id: ura1, mcategory_id: cat})
     @mob = Mobject.where('name=?', "Ausflug "+i.to_s+" von " + @user.name).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'hotspot_'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'hotspot_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
 end
     
@@ -358,7 +357,7 @@ for i in 1..20
     mobjects = Mobject.create({active:true, mtype:"Kleinanzeigen", msubtype: "Anbieten", name:"Kleinanzeige "+i.to_s+" von "+@user.name, date_from:Date.today, date_to:Date.today+30, company_id: nil, user_id: ura1, mcategory_id: cat})
     @mob = Mobject.where('name=?', "Kleinanzeige "+i.to_s+" von " + @user.name).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'kleinanzeige_'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'kleinanzeige_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
 end
 
@@ -375,14 +374,14 @@ for i in 1..10
     mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Spenden", name:"Spendeninitiative "+i.to_s+" von "+@comp.name, date_from:Date.today, date_to:Date.today+30, company_id: cra1, user_id:nil, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5})
     @mob = Mobject.where('name=?', "Spendeninitiative "+i.to_s+" von " + @comp.name).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_spenden_'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_spenden_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
     ura1 = random.rand(usanz)+1
     @user = User.find(ura1)
     mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Spenden", name:"Spendeninitiative "+i.to_s+" von "+@user.name, date_from:Date.today, date_to:Date.today+30, company_id: nil, user_id: ura1, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5})
     @mob = Mobject.where('name=?', "Spendeninitiative "+i.to_s+" von " + @user.name).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_spenden_'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_spenden_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
 end
 usanz = User.all.count-1
@@ -395,14 +394,14 @@ for i in 1..10
     mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Belohnungen", name:"Rewardinitiative "+i.to_s+" von "+@comp.name, date_from:Date.today, date_to:Date.today+30, company_id: cra1, user_id:nil, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5})
     @mob = Mobject.where('name=?', "Rewardinitiative "+i.to_s+" von " + @comp.name).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_belohnung_'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_belohnung_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
     ura1 = random.rand(usanz)+1
     @user = User.find(ura1)
     mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Belohnungen", name:"Rewardinitiative "+i.to_s+" von "+@user.name, date_from:Date.today, date_to:Date.today+30, company_id: nil, user_id: ura1, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5})
     @mob = Mobject.where('name=?', "Rewardinitiative "+i.to_s+" von " + @user.name).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_belohnung_'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_belohnung_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
 end
 usanz = User.all.count-1
@@ -415,14 +414,14 @@ for i in 1..10
     mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Zinsen", name:"Kreditinitiative "+i.to_s+" von "+@comp.name, date_from:Date.today, date_to:Date.today+30, company_id: cra1, user_id:nil, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5})
     @mob = Mobject.where('name=?', "Kreditinitiative "+i.to_s+" von " + @comp.name).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_kredit_'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_kredit_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
     ura1 = random.rand(usanz)+1
     @user = User.find(ura1)
     mobjects = Mobject.create({active:true, mtype:"Crowdfunding", msubtype: "Zinsen", name:"Kreditinitiative "+i.to_s+" von "+@user.name, date_from:Date.today, date_to:Date.today+30, company_id: nil, user_id: ura1, mcategory_id:cat, amount:1000, reward: "Test-CD", due_date: Date.today+365, interest_rate: 3.5})
     @mob = Mobject.where('name=?', "Kreditinitiative "+i.to_s+" von " + @user.name).first
     for k in 1..3
-        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_kredit_'+k.to_s+'.jpg', 'rb'), document:File.open(path2+'pdf'+k.to_s+'.pdf', 'rb')})
+        mdetails = Mdetail.create({mobject_id: @mob.id, name:"Kurzbezeichnung Detail... ", description:"dies ist die Beschreibung Detail... ", avatar:File.open(path+'crowd_kredit_'+k.to_s+'.jpg', 'rb'), document:File.open(path+'pdf'+k.to_s+'.pdf', 'rb')})
     end
 end
 
