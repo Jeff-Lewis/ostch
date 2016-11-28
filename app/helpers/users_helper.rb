@@ -960,7 +960,7 @@ def image_def (domain, mtype, msubtype)
             end
 
           when "Vermietungen"
-            pic = "vehicle.png"
+            pic = "vehicle.jpg"
 
           when "Ausschreibungen"
             pic = "bid.jpg"
@@ -988,7 +988,7 @@ def image_def (domain, mtype, msubtype)
           when "Crowdfunding"
             case msubtype
               when "Spenden"
-                pic = "spenden.jpg"
+                pic = "cf_spenden.jpg"
               when "Belohnungen"
                 pic = "belohnung.jpg"
               when "Zinsen"
