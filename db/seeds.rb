@@ -7,6 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 path = Rails.root.to_s + "/app/assets/images/"
+path = URL(asset_path) + "/images/"
 
 #create Params
 appparams = Appparam.create({name:"Kleinanzeigen", description:"Kleinanzeigen für Private Anbieten & Suchen", active:true})
