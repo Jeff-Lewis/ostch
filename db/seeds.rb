@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+
 path = Rails.root.to_s + "/app/assets/images/"
 path = Rails.root.to_s + "/public/assets/"
 #create Params
