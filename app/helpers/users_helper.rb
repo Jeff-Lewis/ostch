@@ -479,10 +479,12 @@ def showFirstImage2(size, item, details)
         if pic.avatar_file_name
             image_tag pic.avatar(size), class:"img-rounded"
         else
-            image_tag("no_pic.jpg", :size => si, class:"img-rounded" )
+            no_pic = image_def("Object", item.mtype, item.msubtype)
+            image_tag(no_pic, :size => si, class:"card-img-top img-responsive" )
+            #image_tag("no_pic.jpg", :size => si, class:"img-rounded" )
         end
       else
-        image_tag("no_pic.jpg", :size => si, class:"img-rounded" )
+            image_tag("no_pic.jpg", :size => si, class:"img-rounded" )
       end
     end
 end
@@ -503,14 +505,26 @@ def showImage2(size, item, linkit)
         if item.avatar_file_name
             image_tag item.avatar(size), class:"card-img-top img-responsive"
         else
-            image_tag("no_pic.jpg", :size => si, class:"card-img-top img-responsive" )
+            case item.class.name
+              when "User"
+                no_pic = image_def("Privatpersonen", nil, nil)
+              when "Company"
+                no_pic = image_def("Institutionen", nil, nil)
+            end
+            image_tag(no_pic, :size => si, class:"card-img-top img-responsive" )
         end
       end
     else
       if item.avatar_file_name
           image_tag item.avatar(size), class:"card-img-top img-responsive"
       else
-          image_tag("no_pic.jpg", :size => si, class:"card-img-top img-responsive" )
+           case item.class.name
+              when "User"
+                no_pic = image_def("Privatpersonen", nil, nil)
+              when "Company"
+                no_pic = image_def("Institutionen", nil, nil)
+            end
+            image_tag(no_pic, :size => si, class:"card-img-top img-responsive" )
       end
     end
 end
@@ -993,6 +1007,8 @@ def image_def (domain, mtype, msubtype)
                 pic = "belohnung.jpg"
               when "Zinsen"
                 pic = "kredit.jpg"
+              else
+                pic = "kredit.jpg"
             end
 
           when "Kalender (Aktionen)"
@@ -1038,4 +1054,12 @@ def avg_rating2(mobject)
     end
 end
 
+def AktionDatum2(datum, mobject)
+    if datum >= mobject.date_from.to_date and datum <= mobject.date_to.to_date
+        return true
+    else
+        return false
+    end
+end
+    
 end    

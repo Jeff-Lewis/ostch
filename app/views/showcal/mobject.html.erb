@@ -19,7 +19,7 @@
   </div>
 
   <div class="row">
-      <%= header("????? " + "<span class='badge'>" + @mobanz.to_s + "</span>", true) %>
+      <%= header(@mtype + " " + @msubtype.to_s + "<span class='badge'>" + @mobanz.to_s + "</span>", true) %>
   </div>
   
 	<div class="row">
@@ -51,7 +51,7 @@
             <% @mobjects.each do |e| %>
               <tr>
                 <td>
-          		    <% if avg_rating(e.id) == 0 %>
+          		    <% if avg_rating2(e.id) == 0 %>
                     <% image_tag("no_rating.jpg", :size => "50x50" , class:"img-rounded") %>
           		    <% else %>
                     <% avg_rating(e.id).times do %>

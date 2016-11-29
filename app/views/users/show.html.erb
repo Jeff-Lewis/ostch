@@ -19,41 +19,37 @@
               <%= header("Kontaktdaten", false) %>
               <!--<div class='col-xs-12'><div class="panel-body">-->
               <div class="panel-body">
-                <% if @user.anonymous or @user.avatar_file_name == nil %>
-                  <%= image_tag("user_a.png", :size => "200x200", class:"img-rounded" ) %>
-                <% else %>
-                  <%= image_tag @user.avatar(:medium), class:"img-rounded"  %>
-                  <br><br>
-                  <b><i class="glyphicon glyphicon-home"></i> Adresse</b><br>
-                  <% if !@user.anonymous and @user.address1 != nil and @user.address1 != "" %>
-                    <%= @user.address1 %><br> 
-                  <% end %>
-                  <% if !@user.anonymous and @user.address2 != nil and @user.address2 != "" %>
-                    <%= @user.address2 %><br> 
-                  <% end %>
-                  <% if !@user.anonymous and @user.address3 != nil and @user.address3 != "" %>
-                    <%= @user.address3 %><br> 
-                  <% end %>
-                  <br>
-                  <b><i class="glyphicon glyphicon-phone"></i> Telefon</b><br>
-                  <% if !@user.anonymous and @user.phone1 != nil and @user.phone1 != "" %>
-                    <%= @user.phone1 %><br> 
-                  <% end %>
-                  <% if !@user.anonymous and @user.phone2 != nil and @user.phone2 != "" %>
-                    <%= @user.phone2 %><br> 
-                  <% end %>
-                  <br>
-                  <b>Geburtsdatum</b><br>
-                  <%= @user.dateofbirth.strftime("%d.%m.%Y") if @user.dateofbirth %><br>
-                  <% if user_signed_in? %>
-          	        <%= link_to new_email_path :m_from_id => current_user.id, :m_to_id => @user.id, :back_url => request.original_url do %>
-                      <i class="btn btn-default glyphicon glyphicon-envelope"></i>
-                    <% end %>
-                  <% else %>
-                      <i class="glyphicon glyphicon-envelope"></i>
-                  <% end %>
-                  <%= @user.email %><br>
+                <%= showImage2(:medium, @user, false) %>
+                <br><br>
+                <b><i class="glyphicon glyphicon-home"></i> Adresse</b><br>
+                <% if !@user.anonymous and @user.address1 != nil and @user.address1 != "" %>
+                  <%= @user.address1 %><br> 
                 <% end %>
+                <% if !@user.anonymous and @user.address2 != nil and @user.address2 != "" %>
+                  <%= @user.address2 %><br> 
+                <% end %>
+                <% if !@user.anonymous and @user.address3 != nil and @user.address3 != "" %>
+                  <%= @user.address3 %><br> 
+                <% end %>
+                <br>
+                <b><i class="glyphicon glyphicon-phone"></i> Telefon</b><br>
+                <% if !@user.anonymous and @user.phone1 != nil and @user.phone1 != "" %>
+                  <%= @user.phone1 %><br> 
+                <% end %>
+                <% if !@user.anonymous and @user.phone2 != nil and @user.phone2 != "" %>
+                  <%= @user.phone2 %><br> 
+                <% end %>
+                <br>
+                <b>Geburtsdatum</b><br>
+                <%= @user.dateofbirth.strftime("%d.%m.%Y") if @user.dateofbirth %><br>
+                <% if user_signed_in? %>
+        	        <%= link_to new_email_path :m_from_id => current_user.id, :m_to_id => @user.id, :back_url => request.original_url do %>
+                    <i class="btn btn-default glyphicon glyphicon-envelope"></i>
+                  <% end %>
+                <% else %>
+                    <i class="glyphicon glyphicon-envelope"></i>
+                <% end %>
+                <%= @user.email %><br>
             </div>
             <%= header("Aktivitätsübersicht", false) %>
             <div class="panel-body">

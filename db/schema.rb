@@ -339,7 +339,7 @@ create_table "msponsors", force: :cascade do |t|
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
+    t.string   "email", default: "", null: false
     t.string   "status"
     t.string   "password"
     t.string   "lastname"
