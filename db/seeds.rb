@@ -35,7 +35,7 @@ appparams = Appparam.create({name:"Accounts", description:"Konten für Kunden vo
 appparams = Appparam.create({name:"Transaktionen", description:"Transaktionen", active:true})
 
 #create some users...
-users = User.create({calendar:true, time_from:8, time_to:20, dateofbirth:"09.05.1963", anonymous:false, status:"ok", active:true, email:"Paul.Panzer@bluewin.ch", password:"password", name:"Paul", lastname:"Panzer", address1:"Hörnliblick 11", address2:"Zezikon", address3:"Thurgau", superuser:true, webmaster:true, avatar:File.open(path+'ma_2.jpg', 'rb')})
+users = User.create({calendar:true, time_from:8, time_to:20, dateofbirth:"09.05.1963", anonymous:false, status:"ok", active:true, email:"Paul.Panzer2@bluewin.ch", password:"password", name:"Paul", lastname:"Panzer", address1:"Hörnliblick 11", address2:"Zezikon", address3:"Thurgau", superuser:true, webmaster:true, avatar:File.open(path+'ma_2.jpg', 'rb')})
 
 if false
 
