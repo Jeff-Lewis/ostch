@@ -8,7 +8,7 @@
 
 
 path = Rails.root.to_s + "/app/assets/images/"
-
+path=""
 #create Params
 appparams = Appparam.create({name:"Kleinanzeigen", description:"Kleinanzeigen für Private Anbieten & Suchen", active:true})
 appparams = Appparam.create({name:"Stellenanzeigen", description:"Stellenanzeigen für Institutionen", active:true})
