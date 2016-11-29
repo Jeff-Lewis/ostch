@@ -8,7 +8,7 @@
 
 
 path = Rails.root.to_s + "/app/assets/images/"
-path = Rails.root.to_s + "/app/public/assets/"
+path = Rails.root.to_s + "/public/assets/"
 
 #create Params
 appparams = Appparam.create({name:"Kleinanzeigen", description:"Kleinanzeigen für Private Anbieten & Suchen", active:true})
