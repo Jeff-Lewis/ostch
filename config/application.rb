@@ -28,6 +28,6 @@ module Newkmu
     
     #config.assets.paths << Rails.root.join("vendor","assets","bower_components", "bootstrap-sass-official", "assets", "fonts")
     #config.assets.precompile += %w( .svg .eot .woff .ttf .png .jpg .gif)
-    config.assets.paths << Rails.root.join("images", "javascripts", "stylesheets")
+    #config.assets.paths << Rails.root.join("images", "javascripts", "stylesheets")
   end
 end
