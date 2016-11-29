@@ -35,6 +35,10 @@ appparams = Appparam.create({name:"Accounts", description:"Konten für Kunden vo
 appparams = Appparam.create({name:"Transaktionen", description:"Transaktionen", active:true})
 
 #create some users...
+users = User.create({calendar:true, time_from:8, time_to:20, dateofbirth:"09.05.1963", anonymous:false, status:"ok", active:true, email:"Paul.Panzer@bluewin.ch", password:"password", name:"Paul", lastname:"Panzer", address1:"Hörnliblick 11", address2:"Zezikon", address3:"Thurgau", superuser:true, webmaster:true, avatar:File.open(path+'ma_2.jpg', 'rb')})
+
+if false
+
 users = User.create({calendar:true, time_from:8, time_to:20, dateofbirth:"09.05.1963", anonymous:false, status:"ok", active:true, email:"horst.wurm@bluewin.ch", password:"password", name:"Horst", lastname:"Wurm", address1:"Hörnliblick 11", address2:"Zezikon", address3:"Thurgau", superuser:true, webmaster:true, avatar:File.open(path+'ma_1.jpg', 'rb')})
 users = User.create({calendar:true, time_from:8, time_to:20, dateofbirth:"11.2.1970", anonymous:false, status:"ok", active:true, email:"t.oschewsky@bluewin.ch", password:"password", name:"Tanja", lastname:"Oschewsky", address1:"Hörnliblick 11", address2:"Zezikon", address3:"Thurgau", superuser:false,avatar:File.open(path+'ma_3.jpg', 'rb')})
 users = User.create({calendar:true, time_from:8, time_to:20, dateofbirth:"12.12.2016", anonymous:false, status:"ok", active:true, email:"hans.wurst@gmx.com", password:"password", name:"Hans", lastname:"Wurst", address1:"Bahnhofstrasse 11", address2:"Frauenfeld", address3:"", superuser:false,avatar:File.open(path+'ma_2.jpg', 'rb')})
@@ -444,7 +448,7 @@ mcategories = Mcategory.create({ctype:"Ticket", name:"Rabatt"})
         mstats = Mstat.create({mobject_id: c.id, company_id: cra1, amount:250, created_at:Date.today-dat})
     end
 end
-
+end
 if false
 
     rats = Rating.create({status:"ok", service_id:14, user_id:1, user_rating:4, user_comment:"Wahnsinn für den Preis" })
